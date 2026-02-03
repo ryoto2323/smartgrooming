@@ -1,7 +1,7 @@
 export const HERO_TEXT = {
   category: "銀座・メンズ脱毛サロン",
   subCategory: "Smart Grooming for Business Leaders",
-  mainLine1: "戦略的清潔感を",
+  mainLine1: "戦略的な清潔感を",
   mainLine2: "最短距離で。",
   description: "ビジネスにおいて、第一印象は最大の資産となる。\n痛みと時間を最小限に抑えた、\n大人のための合理的脱毛体験を。",
   buttonText: "RESERVE NOW",

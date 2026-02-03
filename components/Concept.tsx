@@ -6,15 +6,16 @@ export const Concept: React.FC = () => {
   const counterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Number Counter Logic
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         let start = 0;
         const end = 3000;
         const duration = 2000;
-        const incrementTime = duration / (end / 100); // Speed up
+        const incrementTime = duration / (end / 100); 
         
         const timer = setInterval(() => {
-          start += 50; // increment by 50 for speed
+          start += 50;
           if (start >= end) {
             start = end;
             clearInterval(timer);
@@ -28,7 +29,9 @@ export const Concept: React.FC = () => {
 
     if (counterRef.current) observer.observe(counterRef.current);
     
-    return () => observer.disconnect();
+    return () => {
+        observer.disconnect();
+    };
   }, []);
 
   return (
@@ -36,7 +39,7 @@ export const Concept: React.FC = () => {
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-white/10 pb-8 reveal-on-scroll">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-white/5 pb-8 reveal-on-scroll">
             <div className="relative">
                 <span className="text-luxury-gold text-xs tracking-[0.2em] block mb-2">{CONCEPT_TEXT.label}</span>
                 <h2 className="font-display text-6xl md:text-8xl text-white/5 absolute -top-12 -left-4 -z-10 select-none">{CONCEPT_TEXT.bgText}</h2>
@@ -50,11 +53,11 @@ export const Concept: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Image Composition */}
             <div className="relative reveal-on-scroll">
-                <div className="aspect-[4/5] w-full max-w-md ml-auto relative z-10 overflow-hidden group">
+                <div className="aspect-[4/5] w-full max-w-md ml-auto relative z-10 overflow-hidden group rounded-sm shadow-2xl">
                     <img 
                         src="https://github.com/ryoto2323/smartgrooming/blob/main/aa.png?raw=true" 
                         alt="Man in suit" 
-                        className="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-110 transition-transform duration-[1.5s] ease-out"
+                        className="w-full h-full object-cover filter grayscale contrast-125 transition-transform duration-500 hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-luxury-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
@@ -62,7 +65,7 @@ export const Concept: React.FC = () => {
                 <div className="absolute top-12 -left-4 md:left-24 w-full h-full border border-luxury-gold/30 z-0 hidden md:block"></div>
                 
                 {/* Float Text */}
-                <div className="absolute -bottom-8 -left-8 md:left-12 bg-luxury-charcoal p-6 md:p-8 max-w-xs shadow-2xl z-20 border-l-2 border-luxury-gold">
+                <div className="absolute -bottom-8 -left-8 md:left-12 bg-luxury-charcoal p-6 md:p-8 max-w-xs shadow-2xl z-20 border-l-2 border-luxury-gold cursor-hover">
                     <p className="font-serif text-lg text-white leading-relaxed whitespace-pre-line">
                         {CONCEPT_TEXT.floatText}
                     </p>
@@ -93,13 +96,13 @@ export const Concept: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-8 pt-8 border-t border-white/5">
-                    <div className="group">
+                    <div className="group cursor-hover">
                         <span className="block text-3xl font-display text-white group-hover:text-luxury-gold transition-colors mb-2">
                             {CONCEPT_TEXT.statTime.value}<span className="text-sm ml-1">{CONCEPT_TEXT.statTime.unit}</span>
                         </span>
                         <p className="text-xs text-luxury-muted whitespace-pre-line">{CONCEPT_TEXT.statTime.desc}</p>
                     </div>
-                    <div className="group">
+                    <div className="group cursor-hover">
                         <span className="block text-3xl font-display text-white group-hover:text-luxury-gold transition-colors mb-2">
                              {CONCEPT_TEXT.statCost.value}<span className="text-sm ml-1">{CONCEPT_TEXT.statCost.unit}</span>
                         </span>

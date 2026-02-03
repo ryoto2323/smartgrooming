@@ -12,16 +12,21 @@ export const Menu: React.FC = () => {
         </div>
 
         {/* Trial Card - Premium Look */}
-        <div className="bg-gradient-to-br from-luxury-charcoal to-luxury-black border border-luxury-gold/30 p-8 md:p-12 mb-16 relative overflow-hidden reveal-on-scroll shadow-2xl flex flex-col md:block">
-            {/* 
-               Mobile: Relative position, centered, margin-bottom to push text down.
-               Desktop: Absolute position top-right corner.
-            */}
-            <div className="relative md:absolute md:top-0 md:right-0 w-fit mx-auto md:mx-0 mb-6 md:mb-0 bg-luxury-gold text-luxury-black text-xs font-bold tracking-widest px-6 py-1 md:p-4 rounded-full md:rounded-none z-20">
+        <div className="bg-gradient-to-br from-luxury-charcoal to-luxury-black border border-luxury-gold/30 mb-16 relative overflow-hidden reveal-on-scroll shadow-2xl">
+            
+            {/* Desktop Badge: Absolute positioning */}
+            <div className="hidden md:block absolute top-0 right-0 bg-luxury-gold text-luxury-black text-xs font-bold tracking-widest p-4 z-20">
                 FIRST TIME
             </div>
+
+            {/* Mobile Badge: Block layout to prevent overlap */}
+            <div className="md:hidden w-full text-center pt-8 pb-2 relative z-20">
+                <span className="bg-luxury-gold text-luxury-black text-xs font-bold tracking-widest px-6 py-2 rounded-full inline-block shadow-md">
+                    FIRST TIME
+                </span>
+            </div>
             
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10 w-full">
+            <div className="p-8 md:p-12 pt-4 md:pt-12 flex flex-col md:flex-row items-center justify-between gap-8 relative z-10 w-full">
                 <div className="text-center md:text-left">
                     <h3 className="font-serif text-2xl text-white mb-2">ヒゲ脱毛 トライアル</h3>
                     <p className="text-luxury-muted text-sm">顔全体（鼻下・あご・あご下・頬・もみあげ・首）</p>

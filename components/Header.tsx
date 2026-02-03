@@ -11,6 +11,24 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Allow external links to work normally
+    if (href.startsWith('http')) return;
+
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    if (href === '#' || href === '') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Optimized nav items for desktop to avoid overcrowding
   const desktopNavItems = [
     { label: 'CONCEPT', href: '#concept' },
@@ -46,7 +64,11 @@ export const Header: React.FC = () => {
     >
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex flex-col group">
+        <a 
+          href="#" 
+          onClick={(e) => handleNavClick(e, '#')}
+          className="flex flex-col group"
+        >
           <span className="font-display text-2xl tracking-widest text-white group-hover:text-luxury-gold transition-colors duration-300">
             SMART GROOMING
           </span>
@@ -61,6 +83,7 @@ export const Header: React.FC = () => {
             <a 
               key={item.label} 
               href={item.href} 
+              onClick={(e) => handleNavClick(e, item.href)}
               className="text-[10px] xl:text-xs font-medium tracking-widest text-luxury-text hover:text-luxury-gold transition-colors relative group"
             >
               {item.label}
@@ -94,20 +117,19 @@ export const Header: React.FC = () => {
             <a 
               key={item.label} 
               href={item.href} 
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleNavClick(e, item.href)}
               className="font-display text-2xl text-white hover:text-luxury-gold transition-colors tracking-widest"
             >
               {item.label}
             </a>
           ))}
           <div className="pt-8 w-64 space-y-4">
-            <a 
-                href="#"
+            <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="block w-full text-center bg-[#06C755] text-white py-4 rounded-sm font-bold tracking-widest"
+                className="block w-full text-center bg-[#06C755] text-white py-4 rounded-sm font-bold tracking-widest hover:opacity-90 transition-opacity"
             >
                 LINE RESERVATION
-            </a>
+            </button>
             <a 
                 href={RESERVATION_URL}
                 target="_blank"

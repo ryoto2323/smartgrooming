@@ -15,16 +15,13 @@ export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
         <img 
           src="https://github.com/ryoto2323/smartgrooming/blob/main/aab.png?raw=true" 
           alt="Luxury Interior" 
-          className="w-full h-full object-cover opacity-50 transition-transform duration-100 ease-out"
-          style={{ transform: 'scale(1.1)' }}
+          className="w-full h-full object-cover transition-transform duration-[20s] ease-out scale-110 opacity-50"
+          style={{ animation: 'ken-burns 30s ease-out infinite alternate' }}
           onLoad={onImageLoad}
         />
-        {/* Animated Mist/Smoke Effect for Cinemagraph vibe */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+        {/* Gradients for depth */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-transparent to-black/40"></div>
-        
-        {/* Floating dust particles effect (simulated with texture) */}
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay animate-pulse"></div>
       </div>
 
       {/* Main Content Container */}
@@ -36,45 +33,49 @@ export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
             <div className="md:col-span-9 relative pt-20">
                 
                 {/* Category Tag Area */}
-                <div className="flex flex-col items-start gap-3 mb-10 animate-fade-in-up">
+                <div className="flex flex-col items-start gap-3 mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                     <div className="relative group">
                         <span className="relative z-10 bg-luxury-gold text-luxury-black px-6 py-2 text-sm md:text-base font-bold tracking-[0.2em] shadow-[0_0_20px_rgba(197,160,89,0.4)] inline-block transform -skew-x-12 transition-transform group-hover:skew-x-0 duration-500">
                             <span className="block transform skew-x-12 group-hover:skew-x-0 transition-transform duration-500">
                                 {HERO_TEXT.category}
                             </span>
                         </span>
-                        <div className="absolute inset-0 bg-white/20 blur-xl"></div>
                     </div>
-                    <p className="text-white/70 text-[10px] md:text-xs tracking-[0.3em] uppercase font-light pl-2">
+                     <p className="text-white/70 text-[10px] md:text-xs tracking-[0.3em] uppercase font-light pl-2 mt-2">
                         {HERO_TEXT.subCategory}
                     </p>
                 </div>
                 
                 <h1 className="text-white leading-none relative">
                     {/* Line 1 */}
-                    <span className="block font-serif text-4xl md:text-6xl lg:text-[5.5rem] font-medium animate-fade-in-up opacity-0 tracking-widest mb-4 md:mb-6" style={{ animationDelay: '0.2s' }}>
-                        {HERO_TEXT.mainLine1.replace('清潔感', '')}
-                        <span className="text-luxury-gold relative inline-block">
-                            清潔感
-                            <span className="absolute -bottom-2 left-0 w-full h-[1px] bg-luxury-gold/50"></span>
-                        </span>を
-                    </span>
+                    <div className="mb-4 md:mb-6 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+                        <span className="block font-serif text-4xl md:text-6xl lg:text-[5.5rem] font-medium tracking-widest">
+                            {HERO_TEXT.mainLine1.split('清潔感')[0]}
+                            <span className="text-luxury-gold relative inline-block mx-2">
+                                清潔感
+                                <span className="absolute -bottom-2 left-0 w-full h-[1px] bg-luxury-gold/50"></span>
+                            </span>
+                            {HERO_TEXT.mainLine1.split('清潔感')[1]}
+                        </span>
+                    </div>
                     
                     {/* Line 2 */}
-                    <span className="block font-sans font-black italic text-6xl md:text-8xl lg:text-[9.5rem] tracking-tighter animate-fade-in-up opacity-0 leading-[1.1] ml-[-0.05em] py-2" style={{ animationDelay: '0.4s' }}>
-                        <span className="relative inline-block z-10 group mr-[-10px] md:mr-[-20px]">
-                            <span className="relative z-20 text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-gray-400 inline-block pr-8 md:pr-14 pb-2">
-                                {HERO_TEXT.mainLine2.replace('で。', '')}
+                    <div className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+                        <span className="block font-sans font-black italic text-6xl md:text-8xl lg:text-[9.5rem] tracking-tighter leading-[1.1] ml-[-0.05em] py-2">
+                            <span className="relative inline-block z-10 group mr-[-10px] md:mr-[-20px]">
+                                <span className="relative z-20 text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-gray-400 inline-block pr-8 md:pr-14 pb-2">
+                                    {HERO_TEXT.mainLine2.replace('で。', '')}
+                                </span>
+                                <div className="absolute bottom-4 left-0 w-[calc(100%-2rem)] md:w-[calc(100%-3.5rem)] h-[3px] bg-luxury-gold shadow-[0_0_15px_rgba(197,160,89,0.8)] transform origin-left scale-x-0 animate-[slide-in-right_1s_cubic-bezier(0.16,1,0.3,1)_1.5s_forwards]"></div>
                             </span>
-                            <div className="absolute bottom-4 left-0 w-[calc(100%-2rem)] md:w-[calc(100%-3.5rem)] h-[3px] bg-luxury-gold shadow-[0_0_15px_rgba(197,160,89,0.8)] transform origin-left scale-x-0 animate-[slide-in-right_1s_cubic-bezier(0.16,1,0.3,1)_0.8s_forwards]"></div>
+                            <span className="text-white not-italic font-serif font-light text-4xl md:text-6xl lg:text-[6rem] ml-4 md:ml-8 align-baseline">で。</span>
                         </span>
-                        <span className="text-white not-italic font-serif font-light text-4xl md:text-6xl lg:text-[6rem] ml-4 md:ml-8 align-baseline">で。</span>
-                    </span>
+                    </div>
                 </h1>
 
                 {/* Sub-copy Area */}
-                <div className="mt-12 md:mt-16 max-w-xl animate-fade-in-up opacity-0" style={{ animationDelay: '0.6s' }}>
-                    <div className="relative bg-black/40 backdrop-blur-sm p-6 md:p-8 rounded-sm border-l-2 border-luxury-gold hover:bg-black/60 transition-colors duration-500">
+                <div className="mt-12 md:mt-16 max-w-xl animate-fade-in-up opacity-0" style={{ animationDelay: '1.2s' }}>
+                    <div className="relative bg-black/40 backdrop-blur-sm p-6 md:p-8 rounded-sm border-l-2 border-luxury-gold hover:bg-black/60 transition-colors duration-500 group cursor-hover">
                         <p className="text-white text-sm md:text-base leading-loose tracking-wide font-normal whitespace-pre-line">
                             {HERO_TEXT.description}
                         </p>
@@ -103,10 +104,10 @@ export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
                 <div className="absolute top-0 right-10 w-[1px] h-full bg-white/10"></div>
                 
                 <div className="writing-vertical text-right h-auto absolute right-0 top-1/2 transform -translate-y-1/2 pr-6 mix-blend-difference">
-                    <span className="text-3xl lg:text-4xl font-display text-white/30 uppercase tracking-widest block mb-8 hover:text-white transition-colors duration-700">
+                    <span className="text-3xl lg:text-4xl font-display text-white/30 uppercase tracking-widest block mb-8 hover:text-white transition-colors duration-700 animate-fade-in opacity-0" style={{ animationDelay: '2s' }}>
                         {HERO_TEXT.verticalMain}
                     </span>
-                    <span className="text-sm text-luxury-gold tracking-[0.3em] font-serif block">
+                    <span className="text-sm text-luxury-gold tracking-[0.3em] font-serif block animate-fade-in opacity-0" style={{ animationDelay: '2.2s' }}>
                         {HERO_TEXT.verticalSub}
                     </span>
                 </div>
@@ -116,7 +117,7 @@ export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
       </div>
       
       {/* Footer / Scroll Indicator */}
-      <div className="absolute bottom-0 w-full px-6 md:px-12 py-8 border-t border-white/5 flex justify-between items-end">
+      <div className="absolute bottom-0 w-full px-6 md:px-12 py-8 border-t border-white/5 flex justify-between items-end z-20">
          <div className="hidden md:block">
              <span className="text-white/30 text-[10px] tracking-widest animate-pulse">SCROLL DOWN</span>
          </div>

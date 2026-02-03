@@ -30,7 +30,7 @@ const App: React.FC = () => {
   const [heroImageLoaded, setHeroImageLoaded] = useState(false);
 
   useEffect(() => {
-    // Scroll Observer Logic (Moved from script.js)
+    // Scroll Observer Logic
     const observerOptions = {
       root: null,
       rootMargin: '0px',
@@ -53,7 +53,9 @@ const App: React.FC = () => {
         }, 100);
     }
 
-    return () => observer.disconnect();
+    return () => {
+        observer.disconnect();
+    };
   }, [isLoading]);
 
   // True Preloader Logic
@@ -79,7 +81,7 @@ const App: React.FC = () => {
   return (
     <div className="relative w-full min-h-screen">
       
-      {/* Opening Loader - Minimalist Version - Spinner Removed */}
+      {/* Opening Loader */}
       <div className={`loader-curtain ${!isLoading ? 'loaded' : ''}`}>
       </div>
 
