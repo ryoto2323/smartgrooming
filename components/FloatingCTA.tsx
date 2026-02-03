@@ -3,11 +3,12 @@ import { Smartphone } from 'lucide-react';
 
 export const FloatingCTA: React.FC = () => {
   return (
-    <div className="fixed bottom-6 left-4 right-4 z-40 md:hidden animate-fade-in-up">
+    <div className="fixed bottom-6 left-4 right-4 z-40 md:hidden animate-fade-in-up" role="region" aria-label="Mobile Reservation Menu">
       <div className="flex gap-3">
         {/* LINE Button */}
         <a 
             href="#" 
+            aria-label="LINEで予約する (500円OFF)"
             className="flex-1 bg-[#06C755] text-white flex flex-col items-center justify-center py-3 rounded-sm shadow-lg border border-white/10 active:scale-95 transition-transform"
         >
             <div className="flex items-center gap-2">
@@ -19,7 +20,10 @@ export const FloatingCTA: React.FC = () => {
 
         {/* Web Reserve Button */}
         <a 
-          href="#menu" 
+          href="https://airrsv.net/demosite0000/calendar"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Webサイトで予約する (24時間受付中)"
           className="flex-[2] btn-luxury bg-luxury-gold text-luxury-black flex flex-col items-center justify-center py-3 rounded-sm shadow-lg active:scale-95 transition-transform"
         >
           <span className="font-bold text-sm tracking-widest">WEB予約</span>

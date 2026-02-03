@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Section } from './Section';
 import { Button } from './Button';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, CheckCircle } from 'lucide-react';
 
 export const Contact: React.FC = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      // Reset after a few seconds
+      setTimeout(() => setIsSubmitted(false), 5000);
+    }, 1500);
+  };
+
   return (
     <Section id="contact" title="CONTACT" subtitle="ご予約・お問い合わせ">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -44,15 +60,23 @@ export const Contact: React.FC = () => {
         </div>
 
         {/* Form */}
-        <form className="bg-noble-800 p-8 rounded-lg border border-noble-700 space-y-6" onSubmit={(e) => e.preventDefault()}>
+        <form className="bg-noble-800 p-8 rounded-lg border border-noble-700 space-y-6 relative" onSubmit={handleSubmit}>
+           {isSubmitted && (
+             <div className="absolute inset-0 bg-noble-800/95 z-10 flex flex-col items-center justify-center rounded-lg animate-fade-in text-center p-6">
+               <CheckCircle className="w-16 h-16 text-green-500 mb-4" />
+               <h4 className="text-xl font-bold text-white mb-2">送信完了</h4>
+               <p className="text-noble-300">お問い合わせありがとうございます。<br/>内容を確認次第、担当者よりご連絡いたします。</p>
+             </div>
+           )}
+
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-noble-300 mb-2">お名前</label>
-            <input type="text" id="name" className="w-full bg-noble-900 border border-noble-600 rounded-sm px-4 py-3 text-white focus:ring-1 focus:ring-noble-gold focus:border-noble-gold outline-none transition-colors" placeholder="山田 太郎" />
+            <input type="text" id="name" required className="w-full bg-noble-900 border border-noble-600 rounded-sm px-4 py-3 text-white focus:ring-1 focus:ring-noble-gold focus:border-noble-gold outline-none transition-colors" placeholder="山田 太郎" />
           </div>
           
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-noble-300 mb-2">メールアドレス</label>
-            <input type="email" id="email" className="w-full bg-noble-900 border border-noble-600 rounded-sm px-4 py-3 text-white focus:ring-1 focus:ring-noble-gold focus:border-noble-gold outline-none transition-colors" placeholder="tarou@example.com" />
+            <input type="email" id="email" required className="w-full bg-noble-900 border border-noble-600 rounded-sm px-4 py-3 text-white focus:ring-1 focus:ring-noble-gold focus:border-noble-gold outline-none transition-colors" placeholder="tarou@example.com" />
           </div>
 
           <div>
@@ -70,8 +94,8 @@ export const Contact: React.FC = () => {
             <textarea id="message" rows={4} className="w-full bg-noble-900 border border-noble-600 rounded-sm px-4 py-3 text-white focus:ring-1 focus:ring-noble-gold focus:border-noble-gold outline-none transition-colors" placeholder="ご質問やご希望の日時など"></textarea>
           </div>
 
-          <Button fullWidth type="submit" className="mt-4">
-            送信する
+          <Button fullWidth type="submit" className="mt-4" disabled={isSubmitting}>
+            {isSubmitting ? '送信中...' : '送信する'}
           </Button>
         </form>
       </div>

@@ -1,17 +1,35 @@
 import React from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+// Base props common to both button and anchor
+interface BaseProps {
+  children: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'outline';
   fullWidth?: boolean;
+  className?: string;
 }
 
-export const Button: React.FC<ButtonProps> = ({ 
-  children, 
-  variant = 'primary', 
-  fullWidth = false,
-  className = '',
-  ...props 
-}) => {
+// Props specific to button
+type ButtonElementProps = BaseProps & React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  href?: never;
+};
+
+// Props specific to anchor
+type AnchorElementProps = BaseProps & React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href: string;
+};
+
+// Union type
+type ButtonProps = ButtonElementProps | AnchorElementProps;
+
+export const Button: React.FC<ButtonProps> = (props) => {
+  const { 
+    children, 
+    variant = 'primary', 
+    fullWidth = false,
+    className = '',
+    ...rest 
+  } = props;
+
   const baseStyle = "inline-flex items-center justify-center px-6 py-3 border text-base font-medium rounded-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-noble-gold disabled:opacity-50 disabled:cursor-not-allowed";
   
   const variants = {
@@ -21,11 +39,21 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const widthStyle = fullWidth ? "w-full" : "";
+  const combinedClassName = `${baseStyle} ${variants[variant]} ${widthStyle} ${className}`;
+
+  if (props.href) {
+    const { href, ...anchorProps } = rest as React.AnchorHTMLAttributes<HTMLAnchorElement>;
+    return (
+      <a href={href} className={combinedClassName} {...anchorProps}>
+        {children}
+      </a>
+    );
+  }
 
   return (
     <button 
-      className={`${baseStyle} ${variants[variant]} ${widthStyle} ${className}`}
-      {...props}
+      className={combinedClassName}
+      {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       {children}
     </button>

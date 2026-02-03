@@ -3,17 +3,17 @@ import React from 'react';
 export const Gallery: React.FC = () => {
   const images = [
     {
-      src: "https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=2727&auto=format&fit=crop",
+      src: "https://github.com/ryoto2323/smartgrooming/blob/main/ii.png?raw=true",
       title: "Private Room",
       desc: "完全個室の施術スペース"
     },
     {
-      src: "https://images.unsplash.com/photo-1599424888034-754876b5d843?q=80&w=2670&auto=format&fit=crop",
+      src: "https://github.com/ryoto2323/smartgrooming/blob/main/jj.png?raw=true",
       title: "Entrance",
       desc: "非日常への入り口"
     },
     {
-      src: "https://images.unsplash.com/photo-1590439471364-192aa70c0b53?q=80&w=2574&auto=format&fit=crop",
+      src: "https://github.com/ryoto2323/smartgrooming/blob/main/kk.png?raw=true",
       title: "Lounge",
       desc: "心を整える待合室"
     }

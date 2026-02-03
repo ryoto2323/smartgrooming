@@ -2,74 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Reset scroll settings to avoid conflicts with Lenis */
+/* Native Smooth Scroll */
 html {
   height: auto;
-  scroll-behavior: auto !important; /* Lenis handles smooth scrolling */
+  scroll-behavior: smooth;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #0F1115;
-  cursor: none;
+  cursor: auto !important; /* Ensure cursor is visible */
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden; /* Prevent horizontal scrollbar on body */
   position: relative;
-}
-
-/* Lenis Recommended CSS */
-html.lenis, html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
-}
-
-/* Custom Cursor */
-.cursor-dot,
-.cursor-outline {
-  position: fixed;
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  z-index: 9999;
-  pointer-events: none;
-}
-
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #C5A059;
-}
-
-.cursor-outline {
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(197, 160, 89, 0.5);
-  transition: width 0.2s, height 0.2s, background-color 0.2s;
-}
-
-body:hover .cursor-outline.hovered {
-  width: 60px;
-  height: 60px;
-  background-color: rgba(197, 160, 89, 0.1);
-  border-color: #C5A059;
 }
 
 /* Custom Scrollbar */
@@ -105,22 +52,6 @@ body:hover .cursor-outline.hovered {
 .loader-curtain.loaded {
   transform: translateY(-100%);
   pointer-events: none;
-}
-
-/* Dynamic Lighting (Spotlight) */
-.spotlight {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: radial-gradient(
-    600px circle at var(--mouse-x) var(--mouse-y),
-    rgba(255, 255, 255, 0.03),
-    transparent 40%
-  );
-  z-index: 1;
 }
 
 /* Glassmorphism utility - Dark Mode */

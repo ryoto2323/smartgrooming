@@ -34,6 +34,8 @@ export const Header: React.FC = () => {
     { label: 'ACCESS', href: '#access' },
   ];
 
+  const RESERVATION_URL = "https://airrsv.net/demosite0000/calendar";
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out border-b ${
@@ -66,7 +68,9 @@ export const Header: React.FC = () => {
             </a>
           ))}
           <a 
-            href="#menu" 
+            href={RESERVATION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-luxury bg-luxury-gold text-luxury-black px-6 xl:px-8 py-3 rounded-sm text-xs font-bold tracking-widest hover:bg-luxury-goldLight"
           >
             RESERVE
@@ -105,7 +109,9 @@ export const Header: React.FC = () => {
                 LINE RESERVATION
             </a>
             <a 
-                href="#menu" 
+                href={RESERVATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block w-full text-center bg-luxury-gold text-luxury-black py-4 rounded-sm font-bold tracking-widest"
             >

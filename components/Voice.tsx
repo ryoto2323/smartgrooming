@@ -8,8 +8,8 @@ export const Voice: React.FC = () => {
       age: "30代 経営者",
       course: "ヒゲ全体セット (10回)",
       comment: "夕方の青ヒゲがコンプレックスでしたが、今は清潔感を保てています。商談時の印象も良くなり、毎朝の10分が浮いたことが最大の投資効果です。",
-      imageBefore: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?q=80&w=1000&auto=format&fit=crop", // Placeholder for rough skin/beard
-      imageAfter: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000&auto=format&fit=crop"   // Placeholder for clean skin
+      imageBefore: "https://github.com/ryoto2323/smartgrooming/blob/main/bb.png?raw=true",
+      imageAfter: "https://github.com/ryoto2323/smartgrooming/blob/main/cc.png?raw=true"
     },
     {
       id: 2,
@@ -17,8 +17,8 @@ export const Voice: React.FC = () => {
       age: "20代 営業職",
       course: "デザインヒゲ脱毛 (6回)",
       comment: "肌が弱く、剃るたびに出血していましたが、脱毛してからは肌トラブルがゼロに。必要な部分だけ残すデザイン脱毛で、大人の色気も演出できています。",
-      imageBefore: "https://images.unsplash.com/photo-1621786032758-295333f2da78?q=80&w=1000&auto=format&fit=crop",
-      imageAfter: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1000&auto=format&fit=crop"
+      imageBefore: "https://github.com/ryoto2323/smartgrooming/blob/main/dd.png?raw=true",
+      imageAfter: "https://github.com/ryoto2323/smartgrooming/blob/main/ee.png?raw=true"
     },
     {
       id: 3,
@@ -26,8 +26,8 @@ export const Voice: React.FC = () => {
       age: "40代 医師",
       course: "全身脱毛 (8回)",
       comment: "半袖を着る際や、腕まくりをした時の清潔感が段違いです。痛みもほとんどなく、もっと早く始めればよかったと後悔しています。",
-      imageBefore: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=1000&auto=format&fit=crop",
-      imageAfter: "https://images.unsplash.com/photo-1588661858509-009774646a78?q=80&w=1000&auto=format&fit=crop"
+      imageBefore: "https://github.com/ryoto2323/smartgrooming/blob/main/ffa.png?raw=true",
+      imageAfter: "https://github.com/ryoto2323/smartgrooming/blob/main/ff.png?raw=true"
     }
   ];
 
@@ -98,14 +98,14 @@ export const Voice: React.FC = () => {
                         {/* Visual Data Representation (Fake Graph/Meter for effect) */}
                         <div className="bg-luxury-charcoal p-4 rounded-sm border border-white/5">
                             <div className="flex justify-between text-[10px] text-luxury-muted uppercase tracking-widest mb-2">
-                                <span>Cleanliness</span>
+                                <span>清潔感</span>
                                 <span className="text-luxury-gold">98%</span>
                             </div>
                             <div className="w-full h-1 bg-black rounded-full overflow-hidden">
                                 <div className="w-[98%] h-full bg-luxury-gold"></div>
                             </div>
                             <div className="flex justify-between text-[10px] text-luxury-muted uppercase tracking-widest mt-4 mb-2">
-                                <span>Satisfaction</span>
+                                <span>満足度</span>
                                 <span className="text-luxury-gold">100%</span>
                             </div>
                             <div className="w-full h-1 bg-black rounded-full overflow-hidden">

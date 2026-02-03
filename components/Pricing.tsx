@@ -36,6 +36,7 @@ const SIMULATOR_ITEMS = [
 
 export const Pricing: React.FC = () => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const RESERVATION_URL = "https://airrsv.net/demosite0000/calendar";
   
   const toggleItem = (id: string) => {
     setSelectedItems(prev => 
@@ -46,9 +47,6 @@ export const Pricing: React.FC = () => {
   const calculateTotal = () => {
     return selectedItems.reduce((total, id) => {
         const item = SIMULATOR_ITEMS.find(i => i.id === id);
-        // Use initial price logic if relevant, for simplicity using standard price here mostly
-        // Or mix logic: if it's the only item, use initial, else standard.
-        // For this demo, let's just sum prices.
         return total + (item?.price || 0);
     }, 0);
   };
@@ -98,7 +96,13 @@ export const Pricing: React.FC = () => {
               </li>
             </ul>
 
-            <Button fullWidth variant={service.popular ? 'primary' : 'outline'}>
+            <Button 
+                fullWidth 
+                variant={service.popular ? 'primary' : 'outline'}
+                href={RESERVATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
               予約する
             </Button>
           </div>

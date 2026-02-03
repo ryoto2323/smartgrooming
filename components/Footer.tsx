@@ -3,7 +3,7 @@ import { MapPin, Phone } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer id="footer" className="bg-black text-white py-20 px-6 border-t border-white/10">
+    <footer id="footer" className="bg-black text-white py-20 px-6 border-t border-white/10 pb-32 md:pb-20">
       <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between gap-16">
         
         {/* Brand */}

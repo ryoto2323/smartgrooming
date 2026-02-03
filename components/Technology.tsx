@@ -51,7 +51,7 @@ export const Technology: React.FC = () => {
       <div ref={ref} className="relative z-10 max-w-4xl mx-auto reveal-on-scroll">
         <div className="text-center mb-16">
             <span className="text-blue-400 text-xs tracking-[0.2em] block mb-2 font-mono">TECHNOLOGY</span>
-            <h2 className="font-display text-4xl text-white tracking-wider">Hyper Cooling System</h2>
+            <h2 className="font-display text-4xl text-white tracking-wider">瞬間冷却システム</h2>
         </div>
 
         <div className="relative border border-white/10 p-8 md:p-16 bg-luxury-black/50 backdrop-blur-md rounded-sm overflow-hidden group">

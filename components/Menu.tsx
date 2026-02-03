@@ -12,12 +12,16 @@ export const Menu: React.FC = () => {
         </div>
 
         {/* Trial Card - Premium Look */}
-        <div className="bg-gradient-to-br from-luxury-charcoal to-luxury-black border border-luxury-gold/30 p-8 md:p-12 mb-16 relative overflow-hidden reveal-on-scroll shadow-2xl">
-            <div className="absolute top-0 right-0 p-4 bg-luxury-gold text-luxury-black text-xs font-bold tracking-widest">
+        <div className="bg-gradient-to-br from-luxury-charcoal to-luxury-black border border-luxury-gold/30 p-8 md:p-12 mb-16 relative overflow-hidden reveal-on-scroll shadow-2xl flex flex-col md:block">
+            {/* 
+               Mobile: Relative position, centered, margin-bottom to push text down.
+               Desktop: Absolute position top-right corner.
+            */}
+            <div className="relative md:absolute md:top-0 md:right-0 w-fit mx-auto md:mx-0 mb-6 md:mb-0 bg-luxury-gold text-luxury-black text-xs font-bold tracking-widest px-6 py-1 md:p-4 rounded-full md:rounded-none z-20">
                 FIRST TIME
             </div>
             
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10 w-full">
                 <div className="text-center md:text-left">
                     <h3 className="font-serif text-2xl text-white mb-2">ヒゲ脱毛 トライアル</h3>
                     <p className="text-luxury-muted text-sm">顔全体（鼻下・あご・あご下・頬・もみあげ・首）</p>
@@ -62,11 +66,16 @@ export const Menu: React.FC = () => {
 
 const MenuItem = ({ name, price, desc }: { name: string, price: string, desc: string }) => (
     <li className="group">
-        <div className="flex items-end justify-between mb-1">
-            <span className="text-white font-serif text-lg tracking-wide bg-luxury-black pr-4 z-10 relative">{name}</span>
-            <div className="flex-1 border-b border-dotted border-white/20 mb-2 mx-2"></div>
-            <span className="text-luxury-gold font-display text-xl bg-luxury-black pl-4 z-10 relative">{price}</span>
+        <div className="flex items-baseline justify-between mb-1 relative">
+            {/* Name: Adjust padding and z-index */}
+            <span className="text-white font-serif text-base md:text-lg tracking-wide bg-luxury-black pr-2 z-10 relative">{name}</span>
+            
+            {/* Leader Line: Hidden on mobile to prevent layout issues */}
+            <div className="flex-1 border-b border-dotted border-white/20 mx-2 hidden md:block"></div>
+            
+            {/* Price: Flex shrink 0 to prevent wrapping */}
+            <span className="text-luxury-gold font-display text-lg md:text-xl bg-luxury-black pl-2 z-10 relative flex-shrink-0">{price}</span>
         </div>
-        <p className="text-xs text-luxury-muted">{desc}</p>
+        <p className="text-xs text-luxury-muted leading-relaxed">{desc}</p>
     </li>
 );

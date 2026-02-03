@@ -1,21 +1,33 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, Send, Sparkles, Loader2, ChevronRight } from 'lucide-react';
+import { MessageSquare, X, Send, Sparkles, Loader2, RotateCcw } from 'lucide-react';
 import { getGeminiResponse } from '../services/geminiService';
 import { ChatMessage, LoadingState } from '../types';
+
+const STORAGE_KEY = 'smart_grooming_chat_history';
 
 export const AiConsultant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
+  // Initialize from sessionStorage or default welcome message
+  const [messages, setMessages] = useState<ChatMessage[]>(() => {
+    try {
+      const stored = sessionStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch (e) {
+      console.warn('Failed to load chat history', e);
+    }
+    return [{
       id: 'welcome',
       role: 'model',
       text: 'いらっしゃいませ。SMART GROOMINGのAIコンシェルジュです。プランの相談や、脱毛に関する疑問など、どのようなことでもお申し付けください。',
-      timestamp: new Date()
-    }
-  ]);
+      timestamp: new Date().toISOString()
+    }];
+  });
+
   const [inputValue, setInputValue] = useState('');
   const [loadingState, setLoadingState] = useState<LoadingState>(LoadingState.IDLE);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -27,17 +39,25 @@ export const AiConsultant: React.FC = () => {
     "未成年でも平気？"
   ];
 
+  // Persist messages to sessionStorage
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    } catch (e) {
+      console.warn('Failed to save chat history', e);
+    }
+  }, [messages]);
+
   // Proactive Engagement Logic
   useEffect(() => {
     const timer = setTimeout(() => {
-        if (!isOpen && !hasInteracted) {
+        if (!isOpen && !hasInteracted && messages.length <= 1) {
             setUnreadCount(1);
-            // Optionally play a soft sound here
         }
-    }, 10000); // 10 seconds delay
+    }, 10000); 
 
     return () => clearTimeout(timer);
-  }, [isOpen, hasInteracted]);
+  }, [isOpen, hasInteracted, messages.length]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -58,7 +78,7 @@ export const AiConsultant: React.FC = () => {
       id: Date.now().toString(),
       role: 'user',
       text: text,
-      timestamp: new Date()
+      timestamp: new Date().toISOString()
     };
 
     setMessages(prev => [...prev, userMsg]);
@@ -74,7 +94,7 @@ export const AiConsultant: React.FC = () => {
         id: (Date.now() + 1).toString(),
         role: 'model',
         text: aiResponseText,
-        timestamp: new Date()
+        timestamp: new Date().toISOString()
       };
 
       setMessages(prev => [...prev, aiMsg]);
@@ -82,6 +102,13 @@ export const AiConsultant: React.FC = () => {
     } catch (error) {
       console.error(error);
       setLoadingState(LoadingState.ERROR);
+    }
+  };
+
+  const handleRetry = () => {
+    const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
+    if (lastUserMessage) {
+        handleSend(lastUserMessage.text);
     }
   };
 
@@ -93,7 +120,7 @@ export const AiConsultant: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
+    <div className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-[100] flex flex-col items-end pointer-events-none">
       
       {/* Proactive Bubble */}
       {!isOpen && unreadCount > 0 && (
@@ -101,13 +128,13 @@ export const AiConsultant: React.FC = () => {
               <p className="text-xs font-bold mb-1">AI Concierge</p>
               <p className="text-sm">料金シミュレーションや、痛みの不安についてお答えしましょうか？</p>
               <div className="absolute -bottom-2 right-8 w-4 h-4 bg-white transform rotate-45"></div>
-              <button onClick={() => setIsOpen(true)} className="absolute inset-0 w-full h-full"></button>
+              <button onClick={() => setIsOpen(true)} className="absolute inset-0 w-full h-full" aria-label="Open Chat"></button>
           </div>
       )}
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="pointer-events-auto mb-4 w-[90vw] md:w-96 h-[600px] max-h-[80vh] bg-luxury-black/95 backdrop-blur-xl rounded-sm shadow-2xl border border-white/10 flex flex-col overflow-hidden animate-fade-in-up origin-bottom-right transition-all">
+        <div className="pointer-events-auto mb-4 w-[90vw] md:w-96 h-[600px] max-h-[60vh] md:max-h-[80vh] bg-luxury-black/95 backdrop-blur-xl rounded-sm shadow-2xl border border-white/10 flex flex-col overflow-hidden animate-fade-in-up origin-bottom-right transition-all">
           {/* Header */}
           <div className="bg-luxury-charcoal p-4 border-b border-white/10 flex justify-between items-center">
             <div className="flex items-center gap-3">
@@ -123,6 +150,7 @@ export const AiConsultant: React.FC = () => {
             <button 
               onClick={() => setIsOpen(false)}
               className="text-luxury-muted hover:text-white transition-colors"
+              aria-label="Close Chat"
             >
               <X className="w-5 h-5" />
             </button>
@@ -163,6 +191,19 @@ export const AiConsultant: React.FC = () => {
                 </div>
               </div>
             )}
+            
+            {loadingState === LoadingState.ERROR && (
+                <div className="text-center">
+                    <button 
+                        onClick={handleRetry}
+                        className="inline-flex items-center gap-2 text-red-400 hover:text-red-300 text-xs border border-red-500/30 px-3 py-1 rounded-sm bg-red-500/10 transition-colors"
+                    >
+                        <RotateCcw className="w-3 h-3" />
+                        メッセージの送信に失敗しました。再試行する
+                    </button>
+                </div>
+            )}
+            
             <div ref={messagesEndRef} />
           </div>
 
@@ -196,6 +237,7 @@ export const AiConsultant: React.FC = () => {
                 onClick={() => handleSend()}
                 disabled={!inputValue.trim() || loadingState === LoadingState.LOADING}
                 className="bg-luxury-gold text-luxury-black p-3 rounded-sm hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Send Message"
               >
                 <Send className="w-5 h-5" />
               </button>
@@ -204,9 +246,10 @@ export const AiConsultant: React.FC = () => {
         </div>
       )}
 
-      {/* Toggle Button - High End Look */}
+      {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close Chat" : "Open AI Concierge"}
         className={`pointer-events-auto group flex items-center gap-3 bg-luxury-gold hover:bg-white text-luxury-black px-6 py-4 rounded-sm shadow-2xl shadow-luxury-gold/20 transition-all duration-500 ease-out hover:-translate-y-1 ${isOpen ? 'bg-white text-luxury-black' : ''}`}
       >
         <span className="font-bold text-xs tracking-widest hidden md:block">

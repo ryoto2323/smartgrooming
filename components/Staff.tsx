@@ -16,7 +16,7 @@ export const Staff: React.FC = () => {
           <div className="reveal-on-scroll group cursor-pointer">
             <div className="img-zoom-container aspect-[3/4] w-full mb-8 relative">
               <img 
-                src="https://placehold.co/600x800/1a1a1a/FFF?text=Manager" 
+                src="https://github.com/ryoto2323/smartgrooming/blob/main/gg.png?raw=true" 
                 alt="佐藤 健一" 
                 className="img-zoom-target w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700" 
               />
@@ -37,7 +37,7 @@ export const Staff: React.FC = () => {
           <div className="reveal-on-scroll group cursor-pointer md:mt-24">
             <div className="img-zoom-container aspect-[3/4] w-full mb-8 relative">
               <img 
-                src="https://placehold.co/600x800/2a2a2a/FFF?text=Chief" 
+                src="https://github.com/ryoto2323/smartgrooming/blob/main/hh.png?raw=true" 
                 alt="田中 美咲" 
                 className="img-zoom-target w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700" 
               />

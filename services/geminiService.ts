@@ -26,15 +26,16 @@ export const getGeminiResponse = async (
   newMessage: string
 ): Promise<string> => {
   try {
+    // API Key must be obtained exclusively from process.env.API_KEY.
     const apiKey = process.env.API_KEY;
+
     if (!apiKey) {
+      console.warn("Gemini API Key is missing or not configured.");
       return "申し訳ありません。現在AIシステムがメンテナンス中のため、お答えできません。";
     }
 
     const ai = new GoogleGenAI({ apiKey });
     
-    // Construct the prompt with history context
-    // Since we are using generateContent for a simple chat interface here without full ChatSession persistence complexity for this demo
     const chatHistoryText = history.map(m => `${m.role === 'user' ? 'User' : 'Model'}: ${m.text}`).join('\n');
     const prompt = `${chatHistoryText}\nUser: ${newMessage}`;
 
@@ -49,6 +50,7 @@ export const getGeminiResponse = async (
     return response.text || "申し訳ありません、うまく回答できませんでした。";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "システムエラーが発生しました。しばらく経ってから再度お試しください。";
+    // Return a user-friendly error message if the API call fails
+    throw new Error("API Connection Failed");
   }
 };
