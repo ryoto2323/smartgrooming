@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMART GROOMING | 戦略的脱毛サロン</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              luxury: {
+                black: '#0F1115',
+                charcoal: '#1A1D23',
+                gray: '#2C3039',
+                gold: '#C5A059',
+                goldLight: '#E5C585',
+                white: '#F0F0F2',
+                text: '#E0E0E0',
+                muted: '#9CA3AF'
+              }
+            },
+            fontFamily: {
+              sans: ['"Noto Sans JP"', 'sans-serif'],
+              serif: ['"Shippori Mincho"', 'serif'],
+              display: ['"Cormorant Garamond"', 'serif'],
+            },
+            letterSpacing: {
+              tighter: '-.025em',
+              tight: '-.015em',
+              normal: '0',
+              wide: '.05em',
+              wider: '.1em',
+              widest: '.25em',
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'fade-in': 'fadeIn 1.5s ease-out forwards',
+              'slide-in-right': 'slideInRight 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'shine': 'shine 8s ease-in-out infinite',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(40px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideInRight: {
+                '0%': { opacity: '0', transform: 'translateX(40px)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' },
+              },
+              shine: {
+                  '0%': { left: '-100%', opacity: '0' },
+                  '20%': { left: '100%', opacity: '0.1' },
+                  '100%': { left: '100%', opacity: '0' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- App Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Import Map -->
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/client": "https://esm.sh/react-dom@^19.2.4/client",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.39.0"
+  }
+}
+</script>
+</head>
+<body class="bg-luxury-black text-luxury-text font-sans antialiased selection:bg-luxury-gold selection:text-white cursor-none">
+    <div id="root"></div>
+</body>
+</html>
