@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Concept } from './components/Concept';
@@ -26,8 +26,7 @@ const SectionLoader = () => (
 );
 
 const App: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [heroImageLoaded, setHeroImageLoaded] = useState(false);
+  // Opening animation logic removed for instant loading
 
   useEffect(() => {
     // Scroll Observer Logic
@@ -46,52 +45,23 @@ const App: React.FC = () => {
       });
     }, observerOptions);
 
-    // Attach observer after loading
-    if (!isLoading) {
-        setTimeout(() => {
-            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-        }, 100);
-    }
+    // Attach observer immediately
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
     return () => {
         observer.disconnect();
     };
-  }, [isLoading]);
-
-  // True Preloader Logic
-  useEffect(() => {
-      // Maximum wait time of 5 seconds (failsafe)
-      const maxWait = setTimeout(() => {
-          setIsLoading(false);
-      }, 5000);
-
-      // Minimum wait time of 1.5 seconds for branding impact
-      const minWait = new Promise(resolve => setTimeout(resolve, 1500));
-
-      if (heroImageLoaded) {
-          minWait.then(() => {
-              clearTimeout(maxWait);
-              setIsLoading(false);
-          });
-      }
-
-      return () => clearTimeout(maxWait);
-  }, [heroImageLoaded]);
+  }, []);
 
   return (
     <div className="relative w-full min-h-screen">
       
-      {/* Opening Loader */}
-      <div className={`loader-curtain ${!isLoading ? 'loaded' : ''}`}>
-      </div>
-
       {/* Dynamic Backgrounds - Grain only */}
       <div className="grain-overlay"></div>
       
       <Header />
       <main>
-        {/* Pass callback to Hero to detect image load */}
-        <Hero onImageLoad={() => setHeroImageLoaded(true)} />
+        <Hero />
         <Concept />
         
         <Suspense fallback={<SectionLoader />}>

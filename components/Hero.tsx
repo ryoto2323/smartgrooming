@@ -2,11 +2,7 @@ import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import { HERO_TEXT } from '../constants/text';
 
-interface HeroProps {
-  onImageLoad?: () => void;
-}
-
-export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
+export const Hero: React.FC = () => {
   return (
     <section id="hero" className="relative w-full h-screen flex flex-col justify-center overflow-hidden bg-luxury-black">
       
@@ -15,13 +11,15 @@ export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
         <img 
           src="https://github.com/ryoto2323/smartgrooming/blob/main/aab.png?raw=true" 
           alt="Luxury Interior" 
-          className="w-full h-full object-cover transition-transform duration-[20s] ease-out scale-110 opacity-50"
+          className="w-full h-full object-cover"
           style={{ animation: 'ken-burns 30s ease-out infinite alternate' }}
-          onLoad={onImageLoad}
+          onError={() => {
+            console.error("Hero image failed to load");
+          }}
         />
-        {/* Gradients for depth */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-transparent to-black/40"></div>
+        {/* Gradients for depth - Adjusted to be lighter so the image is clearly visible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent z-[1]"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/80 via-transparent to-black/10 z-[1]"></div>
       </div>
 
       {/* Main Content Container */}
@@ -41,12 +39,12 @@ export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
                             </span>
                         </span>
                     </div>
-                     <p className="text-white/70 text-[10px] md:text-xs tracking-[0.3em] uppercase font-light pl-2 mt-2">
+                     <p className="text-white/80 text-[10px] md:text-xs tracking-[0.3em] uppercase font-light pl-2 mt-2 drop-shadow-md">
                         {HERO_TEXT.subCategory}
                     </p>
                 </div>
                 
-                <h1 className="text-white leading-none relative">
+                <h1 className="text-white leading-none relative drop-shadow-lg">
                     {/* Line 1 */}
                     <div className="mb-4 md:mb-6 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                         <span className="block font-serif text-4xl md:text-6xl lg:text-[5.5rem] font-medium tracking-widest">
@@ -75,8 +73,8 @@ export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
 
                 {/* Sub-copy Area */}
                 <div className="mt-12 md:mt-16 max-w-xl animate-fade-in-up opacity-0" style={{ animationDelay: '1.2s' }}>
-                    <div className="relative bg-black/40 backdrop-blur-sm p-6 md:p-8 rounded-sm border-l-2 border-luxury-gold hover:bg-black/60 transition-colors duration-500 group cursor-hover">
-                        <p className="text-white text-sm md:text-base leading-loose tracking-wide font-normal whitespace-pre-line">
+                    <div className="relative bg-black/40 backdrop-blur-md p-6 md:p-8 rounded-sm border-l-2 border-luxury-gold hover:bg-black/60 transition-colors duration-500 group cursor-hover">
+                        <p className="text-white text-sm md:text-base leading-loose tracking-wide font-normal whitespace-pre-line drop-shadow-md">
                             {HERO_TEXT.description}
                         </p>
                     </div>
@@ -92,7 +90,7 @@ export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
                             <div className="w-2 h-2 bg-luxury-black rounded-full group-hover:bg-white transition-colors"></div>
                             <div className="absolute inset-0 bg-luxury-gold transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></div>
                         </a>
-                        <p className="text-white/70 text-xs mt-4 tracking-wider pl-1 font-light">
+                        <p className="text-white/80 text-xs mt-4 tracking-wider pl-1 font-light drop-shadow-md">
                             {HERO_TEXT.note}
                         </p>
                     </div>
@@ -101,10 +99,10 @@ export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
 
             {/* Right Side: Vertical Text */}
             <div className="hidden md:flex md:col-span-3 justify-end h-full items-center relative">
-                <div className="absolute top-0 right-10 w-[1px] h-full bg-white/10"></div>
+                <div className="absolute top-0 right-10 w-[1px] h-full bg-white/10 z-20"></div>
                 
-                <div className="writing-vertical text-right h-auto absolute right-0 top-1/2 transform -translate-y-1/2 pr-6 mix-blend-difference">
-                    <span className="text-3xl lg:text-4xl font-display text-white/30 uppercase tracking-widest block mb-8 hover:text-white transition-colors duration-700 animate-fade-in opacity-0" style={{ animationDelay: '2s' }}>
+                <div className="writing-vertical text-right h-auto absolute right-0 top-1/2 transform -translate-y-1/2 pr-6 mix-blend-difference z-20">
+                    <span className="text-3xl lg:text-4xl font-display text-white/50 uppercase tracking-widest block mb-8 hover:text-white transition-colors duration-700 animate-fade-in opacity-0" style={{ animationDelay: '2s' }}>
                         {HERO_TEXT.verticalMain}
                     </span>
                     <span className="text-sm text-luxury-gold tracking-[0.3em] font-serif block animate-fade-in opacity-0" style={{ animationDelay: '2.2s' }}>
@@ -119,7 +117,7 @@ export const Hero: React.FC<HeroProps> = ({ onImageLoad }) => {
       {/* Footer / Scroll Indicator */}
       <div className="absolute bottom-0 w-full px-6 md:px-12 py-8 border-t border-white/5 flex justify-between items-end z-20">
          <div className="hidden md:block">
-             <span className="text-white/30 text-[10px] tracking-widest animate-pulse">SCROLL DOWN</span>
+             <span className="text-white/50 text-[10px] tracking-widest animate-pulse">SCROLL DOWN</span>
          </div>
          <div className="absolute left-1/2 bottom-8 transform -translate-x-1/2 animate-bounce">
             <ChevronDown className="w-5 h-5 text-luxury-gold" />

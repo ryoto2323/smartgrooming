@@ -55,7 +55,8 @@ export const Voice: React.FC = () => {
                         <div className="flex-1 relative">
                             <div className="aspect-[4/5] overflow-hidden rounded-sm relative grayscale group-hover:grayscale-0 transition-all duration-700">
                                 <img src={item.imageBefore} alt="Before" className="w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-black/40"></div>
+                                {/* Reduced overlay opacity to make the face/beard details more visible */}
+                                <div className="absolute inset-0 bg-black/20"></div>
                                 <span className="absolute top-4 left-4 bg-black/80 text-white text-[10px] tracking-widest px-3 py-1 border border-white/20">BEFORE</span>
                             </div>
                         </div>
