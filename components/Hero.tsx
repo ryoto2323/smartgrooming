@@ -18,8 +18,8 @@ export const Hero: React.FC = () => {
           }}
         />
         {/* Gradients for depth - Adjusted to be lighter so the image is clearly visible */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent z-[1]"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/80 via-transparent to-black/10 z-[1]"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/10 to-transparent z-[1]"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/70 via-transparent to-black/5 z-[1]"></div>
       </div>
 
       {/* Main Content Container */}
@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
             <div className="md:col-span-9 relative pt-20">
                 
                 {/* Category Tag Area */}
-                <div className="flex flex-col items-start gap-3 mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                <div className="flex flex-col items-start gap-3 mb-10 animate-fade-in-up" style={{ animationDelay: '0s' }}>
                     <div className="relative group">
                         <span className="relative z-10 bg-luxury-gold text-luxury-black px-6 py-2 text-sm md:text-base font-bold tracking-[0.2em] shadow-[0_0_20px_rgba(197,160,89,0.4)] inline-block transform -skew-x-12 transition-transform group-hover:skew-x-0 duration-500">
                             <span className="block transform skew-x-12 group-hover:skew-x-0 transition-transform duration-500">
@@ -46,7 +46,7 @@ export const Hero: React.FC = () => {
                 
                 <h1 className="text-white leading-none relative drop-shadow-lg">
                     {/* Line 1 */}
-                    <div className="mb-4 md:mb-6 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+                    <div className="mb-4 md:mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
                         <span className="block font-serif text-4xl md:text-6xl lg:text-[5.5rem] font-medium tracking-widest">
                             {HERO_TEXT.mainLine1.split('清潔感')[0]}
                             <span className="text-luxury-gold relative inline-block mx-2">
@@ -58,7 +58,7 @@ export const Hero: React.FC = () => {
                     </div>
                     
                     {/* Line 2 */}
-                    <div className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+                    <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                         <span className="block font-sans font-black italic text-6xl md:text-8xl lg:text-[9.5rem] tracking-tighter leading-[1.1] ml-[-0.05em] py-2">
                             <span className="relative inline-block z-10 group mr-[-10px] md:mr-[-20px]">
                                 <span className="relative z-20 text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-gray-400 inline-block pr-8 md:pr-14 pb-2">
@@ -72,7 +72,7 @@ export const Hero: React.FC = () => {
                 </h1>
 
                 {/* Sub-copy Area */}
-                <div className="mt-12 md:mt-16 max-w-xl animate-fade-in-up opacity-0" style={{ animationDelay: '1.2s' }}>
+                <div className="mt-12 md:mt-16 max-w-xl animate-fade-in-up opacity-0" style={{ animationDelay: '0.3s' }}>
                     <div className="relative bg-black/40 backdrop-blur-md p-6 md:p-8 rounded-sm border-l-2 border-luxury-gold hover:bg-black/60 transition-colors duration-500 group cursor-hover">
                         <p className="text-white text-sm md:text-base leading-loose tracking-wide font-normal whitespace-pre-line drop-shadow-md">
                             {HERO_TEXT.description}
@@ -102,10 +102,10 @@ export const Hero: React.FC = () => {
                 <div className="absolute top-0 right-10 w-[1px] h-full bg-white/10 z-20"></div>
                 
                 <div className="writing-vertical text-right h-auto absolute right-0 top-1/2 transform -translate-y-1/2 pr-6 mix-blend-difference z-20">
-                    <span className="text-3xl lg:text-4xl font-display text-white/50 uppercase tracking-widest block mb-8 hover:text-white transition-colors duration-700 animate-fade-in opacity-0" style={{ animationDelay: '2s' }}>
+                    <span className="text-3xl lg:text-4xl font-display text-white/50 uppercase tracking-widest block mb-8 hover:text-white transition-colors duration-700 animate-fade-in opacity-0" style={{ animationDelay: '0.5s' }}>
                         {HERO_TEXT.verticalMain}
                     </span>
-                    <span className="text-sm text-luxury-gold tracking-[0.3em] font-serif block animate-fade-in opacity-0" style={{ animationDelay: '2.2s' }}>
+                    <span className="text-sm text-luxury-gold tracking-[0.3em] font-serif block animate-fade-in opacity-0" style={{ animationDelay: '0.6s' }}>
                         {HERO_TEXT.verticalSub}
                     </span>
                 </div>

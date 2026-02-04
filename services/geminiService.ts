@@ -26,11 +26,12 @@ export const getGeminiResponse = async (
   newMessage: string
 ): Promise<string> => {
   try {
-    // API Key must be obtained exclusively from process.env.API_KEY.
-    const apiKey = process.env.API_KEY;
+    // API Key obtained from import.meta.env for Vite/Cloudflare support
+    // Updated to use VITE_GEMINI_API_KEY as per Cloudflare Pages configuration
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
     if (!apiKey) {
-      console.warn("Gemini API Key is missing or not configured.");
+      console.warn("Gemini API Key is missing or not configured (VITE_GEMINI_API_KEY).");
       return "申し訳ありません。現在AIシステムがメンテナンス中のため、お答えできません。";
     }
 

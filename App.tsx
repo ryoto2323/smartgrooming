@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Concept } from './components/Concept';
@@ -26,33 +26,6 @@ const SectionLoader = () => (
 );
 
 const App: React.FC = () => {
-  // Opening animation logic removed for instant loading
-
-  useEffect(() => {
-    // Scroll Observer Logic
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    // Attach observer immediately
-    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-
-    return () => {
-        observer.disconnect();
-    };
-  }, []);
-
   return (
     <div className="relative w-full min-h-screen">
       

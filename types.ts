@@ -25,8 +25,19 @@ export enum LoadingState {
   SUCCESS = 'SUCCESS'
 }
 
-// Environment variable type definition for Vite/Process
+// Environment variable type definition
 declare global {
+  // Vite Types
+  interface ImportMetaEnv {
+    readonly VITE_GEMINI_API_KEY: string;
+    readonly [key: string]: string | undefined;
+  }
+
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+  }
+
+  // Process Types (Legacy/Fallback)
   interface Window {
     process?: {
       env: {

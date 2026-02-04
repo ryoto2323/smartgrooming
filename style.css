@@ -32,16 +32,9 @@ body {
   background: #C5A059;
 }
 
-/* Standard Fade Up */
+/* Scroll reveal classes removed for instant display */
 .reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal-on-scroll.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  /* No opacity: 0; content should be visible immediately */
 }
 
 /* Vertical Writing Mode */
