@@ -26,13 +26,12 @@ export const getGeminiResponse = async (
   newMessage: string
 ): Promise<string> => {
   try {
-    // API Key obtained from import.meta.env for Vite/Cloudflare support
-    // Updated to use VITE_GEMINI_API_KEY as per Cloudflare Pages configuration
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    // Use process.env.API_KEY as per Google GenAI SDK guidelines
+    const apiKey = process.env.API_KEY;
 
     if (!apiKey) {
-      console.warn("Gemini API Key is missing or not configured (VITE_GEMINI_API_KEY).");
-      return "申し訳ありません。現在AIシステムがメンテナンス中のため、お答えできません。";
+      console.warn("API Key is missing (process.env.API_KEY).");
+      throw new Error("API Key not found");
     }
 
     const ai = new GoogleGenAI({ apiKey });
@@ -51,7 +50,6 @@ export const getGeminiResponse = async (
     return response.text || "申し訳ありません、うまく回答できませんでした。";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    // Return a user-friendly error message if the API call fails
-    throw new Error("API Connection Failed");
+    throw error;
   }
 };

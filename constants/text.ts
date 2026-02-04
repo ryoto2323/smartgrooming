@@ -24,3 +24,22 @@ export const CONCEPT_TEXT = {
   statTime: { value: "30", unit: "min", desc: "来店から退店まで。\n隙間時間で完了。" },
   statCost: { value: "0", unit: "yen", desc: "入会金・年会費・勧誘。\n余計なコストは一切なし。" }
 };
+
+export const STAFF_DATA = [
+  {
+    id: 1,
+    name: "佐藤 健一",
+    role: "Salon Manager",
+    qualification: "認定脱毛士 / 施術歴8年 / 男性対応数3,000件超",
+    description: "「痛みへの配慮」を最優先に。かつて私自身がヒゲに悩んだ経験から、お客様一人ひとりの肌質に合わせた最適な出力設定を見極めます。脱毛は痛い、という常識を変えてみせます。",
+    image: "https://github.com/ryoto2323/smartgrooming/blob/main/gg.png?raw=true"
+  },
+  {
+    id: 2,
+    name: "田中 美咲",
+    role: "Chief Staff",
+    qualification: "美容師免許 / カウンセリング・コーチング1級",
+    description: "女性目線での「好感度」を追求したデザイン提案が得意です。清潔感はもちろん、お顔立ちに合わせたヒゲの濃さや形の調整など、細部までこだわり抜いた施術を提供いたします。",
+    image: "https://github.com/ryoto2323/smartgrooming/blob/main/hh.png?raw=true"
+  }
+];

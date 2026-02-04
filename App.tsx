@@ -26,6 +26,7 @@ const SectionLoader = () => (
 );
 
 const App: React.FC = () => {
+  // No artificial loading delay. Content renders immediately.
   return (
     <div className="relative w-full min-h-screen">
       

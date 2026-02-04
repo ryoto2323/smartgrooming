@@ -48,7 +48,8 @@ export const Flow: React.FC = () => {
       <div className="max-w-screen-xl mx-auto px-6 relative z-10">
         <div className="text-center mb-24 reveal-on-scroll">
             <span className="text-luxury-gold text-xs tracking-[0.2em] block mb-2">PROCESS</span>
-            <h2 className="font-display text-4xl md:text-5xl text-white tracking-wider">Flow</h2>
+            <h2 className="font-display text-2xl md:text-5xl text-white tracking-wider md:block hidden">Flow</h2>
+            <h2 className="font-serif text-3xl text-white md:hidden block">施術の流れ</h2>
         </div>
 
         <div className="space-y-12 md:space-y-0">

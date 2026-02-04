@@ -54,7 +54,7 @@ export const Voice: React.FC = () => {
                         {/* Before */}
                         <div className="flex-1 relative">
                             <div className="aspect-[4/5] overflow-hidden rounded-sm relative grayscale group-hover:grayscale-0 transition-all duration-700">
-                                <img src={item.imageBefore} alt="Before" className="w-full h-full object-cover" />
+                                <img src={item.imageBefore} alt="Before" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                                 {/* Reduced overlay opacity to make the face/beard details more visible */}
                                 <div className="absolute inset-0 bg-black/20"></div>
                                 <span className="absolute top-4 left-4 bg-black/80 text-white text-[10px] tracking-widest px-3 py-1 border border-white/20">BEFORE</span>
@@ -71,7 +71,7 @@ export const Voice: React.FC = () => {
                         {/* After */}
                         <div className="flex-1 relative">
                             <div className="aspect-[4/5] overflow-hidden rounded-sm relative">
-                                <img src={item.imageAfter} alt="After" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                                <img src={item.imageAfter} alt="After" loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-50"></div>
                                 <span className="absolute top-4 left-4 bg-luxury-gold text-luxury-black text-[10px] font-bold tracking-widest px-3 py-1 shadow-lg">AFTER</span>
                             </div>

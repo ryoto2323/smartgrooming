@@ -43,9 +43,12 @@ export const Concept: React.FC = () => {
             <div className="relative">
                 <span className="text-luxury-gold text-xs tracking-[0.2em] block mb-2">{CONCEPT_TEXT.label}</span>
                 <h2 className="font-display text-6xl md:text-8xl text-white/5 absolute -top-12 -left-4 -z-10 select-none">{CONCEPT_TEXT.bgText}</h2>
-                <h2 className="font-display text-4xl md:text-5xl text-white tracking-wider relative z-10">{CONCEPT_TEXT.title}</h2>
+                {/* Mobile: Small English / PC: Big English */}
+                <h2 className="font-display text-2xl md:text-5xl text-white tracking-wider relative z-10 md:block hidden">{CONCEPT_TEXT.title}</h2>
+                <h2 className="font-serif text-3xl text-white relative z-10 md:hidden block mt-2">合理的思考</h2>
             </div>
-            <p className="text-luxury-muted text-sm mt-4 md:mt-0 max-w-md text-right md:text-left">
+            {/* Mobile: Big Japanese / PC: Standard description */}
+            <p className="text-luxury-muted text-sm md:text-sm mt-4 md:mt-0 max-w-md text-left md:text-left font-serif md:font-sans">
                 {CONCEPT_TEXT.subtitle}
             </p>
         </div>
@@ -57,6 +60,8 @@ export const Concept: React.FC = () => {
                     <img 
                         src="https://github.com/ryoto2323/smartgrooming/blob/main/aa.png?raw=true" 
                         alt="Man in suit" 
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover filter grayscale contrast-125 transition-transform duration-500 hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-luxury-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

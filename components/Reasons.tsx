@@ -30,7 +30,9 @@ export const Reasons: React.FC = () => {
       <div className="max-w-screen-xl mx-auto px-6 md:px-12 relative z-10">
         <div className="mb-20 reveal-on-scroll">
             <span className="text-luxury-gold text-xs tracking-[0.2em] block mb-2">WHY CHOOSE US</span>
-            <h2 className="font-display text-4xl md:text-5xl text-white tracking-wider">The Standard</h2>
+            {/* Mobile: Japanese first / PC: English first */}
+            <h2 className="font-display text-2xl md:text-5xl text-white/50 md:text-white tracking-wider md:block hidden">The Standard</h2>
+            <h2 className="font-serif text-3xl text-white md:hidden block">選ばれる理由</h2>
         </div>
 
         <div className="grid grid-cols-1 gap-8">
@@ -46,8 +48,9 @@ export const Reasons: React.FC = () => {
                 {/* Content */}
                 <div className="flex-1">
                     <h3 className="text-2xl md:text-3xl font-serif text-white mb-2 flex flex-col md:flex-row md:items-center gap-2 md:gap-6">
-                        <span className="tracking-wide">{reason.en}</span>
-                        <span className="text-sm md:text-base text-luxury-muted font-sans font-normal tracking-normal border-l-0 md:border-l border-white/20 pl-0 md:pl-6">{reason.jp}</span>
+                        {/* Mobile Swap */}
+                        <span className="text-sm md:text-2xl order-2 md:order-1 tracking-wide opacity-50 md:opacity-100">{reason.en}</span>
+                        <span className="text-xl md:text-base text-white md:text-luxury-muted font-serif md:font-sans font-medium md:font-normal tracking-normal border-l-0 md:border-l border-white/20 pl-0 md:pl-6 order-1 md:order-2">{reason.jp}</span>
                     </h3>
                     <p className="text-luxury-muted mt-4 leading-loose max-w-2xl font-light">
                         {reason.desc}

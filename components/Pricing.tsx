@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Section } from './Section';
 import { Button } from './Button';
-import { Check, RefreshCw } from 'lucide-react';
+import { Check, RefreshCw, CalendarCheck } from 'lucide-react';
 import { ServiceItem } from '../types';
 
 const SERVICES: ServiceItem[] = [
@@ -145,15 +145,30 @@ export const Pricing: React.FC = () => {
              ))}
          </div>
 
-         <div className="flex flex-col md:flex-row items-center justify-between bg-white/[0.02] p-6 rounded-sm border border-white/5">
-             <div className="text-white text-sm mb-4 md:mb-0">
+         <div className="flex flex-col md:flex-row items-center justify-between bg-white/[0.02] p-6 rounded-sm border border-white/5 gap-6">
+             <div className="text-white text-sm">
                  選択中: {selectedItems.length}部位
              </div>
-             <div className="flex items-baseline gap-4">
-                 <span className="text-luxury-muted text-sm">合計目安 (通常価格)</span>
-                 <span className="text-4xl md:text-5xl font-display text-white">
-                     ¥<span className="text-luxury-gold">{calculateTotal().toLocaleString()}</span>
-                 </span>
+             <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 w-full md:w-auto">
+                 <div className="flex items-baseline gap-4">
+                     <span className="text-luxury-muted text-sm">合計目安 (通常価格)</span>
+                     <span className="text-4xl md:text-5xl font-display text-white">
+                         ¥<span className="text-luxury-gold">{calculateTotal().toLocaleString()}</span>
+                     </span>
+                 </div>
+                 
+                 {/* Simulator CTA Button */}
+                 {selectedItems.length > 0 && (
+                     <a
+                        href={RESERVATION_URL}
+                        target="_blank"
+                        rel="noopener noreferrer" 
+                        className="w-full md:w-auto flex items-center justify-center gap-2 bg-luxury-gold text-luxury-black px-6 py-4 rounded-sm text-sm font-bold hover:bg-white transition-colors animate-fade-in"
+                     >
+                         <CalendarCheck className="w-4 h-4" />
+                         この内容で空き状況を確認
+                     </a>
+                 )}
              </div>
          </div>
       </div>

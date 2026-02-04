@@ -34,6 +34,8 @@ export const Gallery: React.FC = () => {
                         <img 
                             src={img.src} 
                             alt={img.title} 
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110 filter grayscale group-hover:grayscale-0"
                         />
                         <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>

@@ -7,7 +7,8 @@ export const Menu: React.FC = () => {
         
         <div className="text-center mb-20 reveal-on-scroll">
             <span className="text-luxury-gold text-xs tracking-[0.2em] block mb-2">PRICE LIST</span>
-            <h2 className="font-display text-4xl md:text-5xl text-white tracking-wider mb-6">Menu</h2>
+            <h2 className="font-display text-2xl md:text-5xl text-white tracking-wider mb-6 md:block hidden">Menu</h2>
+            <h2 className="font-serif text-3xl text-white mb-6 md:hidden block">メニュー一覧</h2>
             <p className="text-luxury-muted text-sm">必要なのは、来店時の支払いのみ。</p>
         </div>
 

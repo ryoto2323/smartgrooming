@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, Send, Sparkles, Loader2, RotateCcw } from 'lucide-react';
+import { MessageSquare, X, Send, Sparkles, Loader2, RotateCcw, CalendarCheck } from 'lucide-react';
 import { getGeminiResponse } from '../services/geminiService';
 import { ChatMessage, LoadingState } from '../types';
 
 const STORAGE_KEY = 'smart_grooming_chat_history';
+const RESERVATION_URL = "https://airrsv.net/demosite0000/calendar";
 
 export const AiConsultant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,6 +31,7 @@ export const AiConsultant: React.FC = () => {
 
   const [inputValue, setInputValue] = useState('');
   const [loadingState, setLoadingState] = useState<LoadingState>(LoadingState.IDLE);
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const suggestions = [
@@ -41,12 +43,14 @@ export const AiConsultant: React.FC = () => {
 
   // Persist messages to sessionStorage
   useEffect(() => {
-    try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-    } catch (e) {
-      console.warn('Failed to save chat history', e);
+    if (!isTyping) {
+        try {
+            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+        } catch (e) {
+            console.warn('Failed to save chat history', e);
+        }
     }
-  }, [messages]);
+  }, [messages, isTyping]);
 
   // Proactive Engagement Logic
   useEffect(() => {
@@ -64,15 +68,46 @@ export const AiConsultant: React.FC = () => {
   };
 
   useEffect(() => {
+    scrollToBottom();
+  }, [messages, isTyping, loadingState]);
+
+  useEffect(() => {
     if (isOpen) {
         scrollToBottom();
         setUnreadCount(0);
         setHasInteracted(true);
     }
-  }, [messages, isOpen]);
+  }, [isOpen]);
+
+  const simulateTypewriter = async (fullText: string) => {
+    setIsTyping(true);
+    const messageId = (Date.now() + 1).toString();
+    const timestamp = new Date().toISOString();
+    
+    // Add empty message first
+    setMessages(prev => [...prev, {
+        id: messageId,
+        role: 'model',
+        text: '',
+        timestamp
+    }]);
+
+    const chars = fullText.split('');
+    let currentText = '';
+
+    for (let i = 0; i < chars.length; i++) {
+        await new Promise(resolve => setTimeout(resolve, 30)); // Typing speed
+        currentText += chars[i];
+        setMessages(prev => prev.map(msg => 
+            msg.id === messageId ? { ...msg, text: currentText } : msg
+        ));
+    }
+    
+    setIsTyping(false);
+  };
 
   const handleSend = async (text: string = inputValue) => {
-    if (!text.trim() || loadingState === LoadingState.LOADING) return;
+    if (!text.trim() || loadingState === LoadingState.LOADING || isTyping) return;
 
     const userMsg: ChatMessage = {
       id: Date.now().toString(),
@@ -90,15 +125,8 @@ export const AiConsultant: React.FC = () => {
       const historyForApi = messages.map(m => ({ role: m.role, text: m.text }));
       const aiResponseText = await getGeminiResponse(historyForApi, userMsg.text);
 
-      const aiMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        role: 'model',
-        text: aiResponseText,
-        timestamp: new Date().toISOString()
-      };
-
-      setMessages(prev => [...prev, aiMsg]);
       setLoadingState(LoadingState.SUCCESS);
+      await simulateTypewriter(aiResponseText);
     } catch (error) {
       console.error(error);
       setLoadingState(LoadingState.ERROR);
@@ -158,27 +186,52 @@ export const AiConsultant: React.FC = () => {
 
           {/* Messages Area */}
           <div className="flex-1 overflow-y-auto p-4 space-y-6 bg-transparent scrollbar-thin scrollbar-thumb-luxury-gold/20">
-            {messages.map((msg) => (
-              <div 
-                key={msg.id} 
-                className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
-              >
-                {msg.role === 'model' && (
-                    <div className="w-8 h-8 rounded-full border border-luxury-gold/30 flex items-center justify-center flex-shrink-0 bg-luxury-black mt-1">
-                        <Sparkles className="w-4 h-4 text-luxury-gold" />
+            {messages.map((msg, index) => {
+              const isLastMessage = index === messages.length - 1;
+              const showReservationChip = msg.role === 'model' && isLastMessage && !isTyping;
+
+              return (
+                <div 
+                    key={msg.id} 
+                    className={`flex flex-col gap-2 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
+                >
+                    <div className={`flex gap-3 max-w-[90%] ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
+                        {msg.role === 'model' && (
+                            <div className="w-8 h-8 rounded-full border border-luxury-gold/30 flex items-center justify-center flex-shrink-0 bg-luxury-black mt-1">
+                                <Sparkles className="w-4 h-4 text-luxury-gold" />
+                            </div>
+                        )}
+                        
+                        <div className={`
+                        p-4 text-sm leading-loose font-light tracking-wide
+                        ${msg.role === 'model' 
+                            ? 'bg-luxury-charcoal text-luxury-text rounded-sm border border-white/5 rounded-tl-none' 
+                            : 'bg-luxury-gold text-luxury-black rounded-sm font-medium rounded-tr-none shadow-[0_0_15px_rgba(197,160,89,0.3)]'}
+                        `}>
+                        {msg.text}
+                        {msg.role === 'model' && isLastMessage && isTyping && (
+                            <span className="inline-block w-1.5 h-4 ml-1 align-middle bg-luxury-gold/70 animate-pulse"></span>
+                        )}
+                        </div>
                     </div>
-                )}
-                
-                <div className={`
-                  max-w-[85%] p-4 text-sm leading-loose font-light tracking-wide
-                  ${msg.role === 'model' 
-                    ? 'bg-luxury-charcoal text-luxury-text rounded-sm border border-white/5 rounded-tl-none' 
-                    : 'bg-luxury-gold text-luxury-black rounded-sm font-medium rounded-tr-none shadow-[0_0_15px_rgba(197,160,89,0.3)]'}
-                `}>
-                  {msg.text}
+
+                    {/* Reservation Chip - Only for Model */}
+                    {showReservationChip && (
+                         <div className="pl-11 animate-fade-in-up">
+                            <a 
+                                href={RESERVATION_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 bg-luxury-gold/10 hover:bg-luxury-gold/20 border border-luxury-gold/30 text-luxury-gold text-xs px-4 py-2 rounded-full transition-colors"
+                            >
+                                <CalendarCheck className="w-3 h-3" />
+                                予約ページへ進む
+                            </a>
+                        </div>
+                    )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
             
             {loadingState === LoadingState.LOADING && (
               <div className="flex gap-3">
@@ -213,7 +266,7 @@ export const AiConsultant: React.FC = () => {
                 <button
                     key={idx}
                     onClick={() => handleSend(suggestion)}
-                    disabled={loadingState === LoadingState.LOADING}
+                    disabled={loadingState === LoadingState.LOADING || isTyping}
                     className="flex-shrink-0 text-[10px] bg-white/5 hover:bg-white/10 border border-white/10 text-luxury-muted hover:text-white px-3 py-2 rounded-full transition-colors whitespace-nowrap"
                 >
                     {suggestion}
@@ -231,11 +284,11 @@ export const AiConsultant: React.FC = () => {
                 onKeyDown={handleKeyPress}
                 placeholder="メッセージを入力..."
                 className="flex-1 bg-luxury-charcoal border border-white/10 text-white placeholder-luxury-muted/50 text-sm rounded-sm focus:ring-1 focus:ring-luxury-gold focus:border-luxury-gold p-3 outline-none transition-colors"
-                disabled={loadingState === LoadingState.LOADING}
+                disabled={loadingState === LoadingState.LOADING || isTyping}
               />
               <button
                 onClick={() => handleSend()}
-                disabled={!inputValue.trim() || loadingState === LoadingState.LOADING}
+                disabled={!inputValue.trim() || loadingState === LoadingState.LOADING || isTyping}
                 className="bg-luxury-gold text-luxury-black p-3 rounded-sm hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Send Message"
               >
