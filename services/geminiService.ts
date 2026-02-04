@@ -26,11 +26,11 @@ export const getGeminiResponse = async (
   newMessage: string
 ): Promise<string> => {
   try {
-    // Use process.env.API_KEY as per Google GenAI SDK guidelines
-    const apiKey = process.env.API_KEY;
+    // Use import.meta.env.VITE_GEMINI_API_KEY for Vite-based frontend
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
     if (!apiKey) {
-      console.warn("API Key is missing (process.env.API_KEY).");
+      console.warn("API Key is missing (VITE_GEMINI_API_KEY).");
       throw new Error("API Key not found");
     }
 
