@@ -13,6 +13,7 @@ export const Hero: React.FC = () => {
           alt="Luxury Interior" 
           loading="eager"
           fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover"
           style={{ animation: 'ken-burns 30s ease-out infinite alternate' }}
           onError={() => {
@@ -49,7 +50,6 @@ export const Hero: React.FC = () => {
                 <h1 className="text-white leading-none relative drop-shadow-lg">
                     {/* Line 1 */}
                     <div className="mb-4 md:mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-                        {/* Mobile optimization: smaller font size and reduced tracking to fit on one line */}
                         <span className="block font-serif text-2xl sm:text-3xl md:text-6xl lg:text-[5.5rem] font-medium tracking-wide md:tracking-widest">
                             {HERO_TEXT.mainLine1.split('清潔感')[0]}
                             <span className="text-luxury-gold relative inline-block mx-2">
@@ -125,11 +125,7 @@ export const Hero: React.FC = () => {
          <div className="absolute left-1/2 bottom-8 transform -translate-x-1/2 animate-bounce">
             <ChevronDown className="w-5 h-5 text-luxury-gold" />
          </div>
-         <div className="flex gap-4">
-            <div className="w-2 h-2 bg-luxury-gold rounded-full"></div>
-            <div className="w-2 h-2 bg-white/20 rounded-full"></div>
-            <div className="w-2 h-2 bg-white/20 rounded-full"></div>
-         </div>
+         {/* 消去要請のあったドットを削除 */}
       </div>
 
     </section>
