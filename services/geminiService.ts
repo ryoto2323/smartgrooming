@@ -14,11 +14,12 @@ const SYSTEM_INSTRUCTION = `
   - 全身脱毛（VIO除く）: 初回 9,800円
   - VIOセット: 初回 5,000円
 - よくある質問への回答方針:
-  - 「痛いですか？」→ 「最新のマシンを使用しており、マイナス10℃の瞬間冷却機能で痛みを大幅に軽減しています。輪ゴムで弾かれた程度の刺激に抑えていますが、部位や個人差があります。テスト照射も可能です。」
+  - 「痛いですか？」→ 「最新のマシンを使用しており、マイナス10℃の瞬間冷却機能で痛みを大幅に軽減しています。輪ゴムで弾かれた程度の刺激に抑えていますが、部位や個人差があります。」
   - 「何回で終わりますか？」→ 「個人差がありますが、ヒゲなら10回〜15回、体なら5回〜10回程度で効果を実感される方が多いです。」
   - 「予約方法は？」→ 「Webサイト下部の予約フォーム、またはお電話で承っております。」
 
 回答は短めに（200文字以内推奨）、お客様の不安を取り除くように心がけてください。
+「SMART GROOMING公式」としての回答を徹底してください。
 `;
 
 export const getGeminiStream = async (
@@ -26,19 +27,20 @@ export const getGeminiStream = async (
   newMessage: string
 ) => {
   try {
-    // 実行環境の標準である process.env.API_KEY を使用します
-    const apiKey = process.env.API_KEY;
+    // ガイドラインに従い、process.env.API_KEY を使用します。
+    // ブラウザ環境で process が未定義の場合のエラーを避けるため、安全な参照を行います。
+    const apiKey = (globalThis as any).process?.env?.API_KEY || (import.meta as any).env?.VITE_GEMINI_API_KEY;
 
     if (!apiKey) {
-      throw new Error("API Key not found in process.env.API_KEY");
+      console.error("Critical: API Key is missing. Please check your environment variables.");
+      throw new Error("API_KEY_MISSING");
     }
 
     const ai = new GoogleGenAI({ apiKey });
     
-    // 会話履歴の構築
     const contents = [
       ...history.map(m => ({
-        role: m.role,
+        role: m.role as 'user' | 'model',
         parts: [{ text: m.text }]
       })),
       {
@@ -56,7 +58,7 @@ export const getGeminiStream = async (
       }
     });
   } catch (error) {
-    console.error("Gemini API Error:", error);
+    console.error("Gemini API Error Detail:", error);
     throw error;
   }
 };
